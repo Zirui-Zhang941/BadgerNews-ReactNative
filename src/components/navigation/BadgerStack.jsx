@@ -8,7 +8,7 @@ const NewsStack = createNativeStackNavigator();
 function BadgerStack() {
   return (
       <NewsStack.Navigator>
-        <NewsStack.Screen name="NewsScrren" component={BadgerNewsScreen} options={{headerShown: false}}/>
+        <NewsStack.Screen name="AllNews" component={BadgerNewsScreen} options={{headerShown: false}}/>
         <NewsStack.Screen name="DetailedNews" component={BadgerDetailedScreen} options={{headerShown: "Article"}}/>
       </NewsStack.Navigator>
   );

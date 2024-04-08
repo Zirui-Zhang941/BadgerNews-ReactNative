@@ -1,7 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 import BadgerTabs from './navigation/BadgerTabs';
+import BadgerPreferencesScreen from './screens/BadgerPreferencesScreen';
+import BadgerNewsScreen from './screens/BadgerNewsScreen';
+import PreferenceContext from './context/PreferenceContext';
 import CS571 from '@cs571/mobile-client';
 
 export default function BadgerNews(props) {
@@ -10,10 +13,12 @@ export default function BadgerNews(props) {
   const [prefs, setPrefs] = useState({});
 
   return (
-    <>
-      <NavigationContainer>
+    <NavigationContainer>
+      
+      <PreferenceContext.Provider value={[prefs, setPrefs]}>
         <BadgerTabs />
-      </NavigationContainer>
-    </>
+
+      </PreferenceContext.Provider>
+    </NavigationContainer>
   );
 }

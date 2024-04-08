@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Animated } from "react-native";
+import { Text, View, Animated,Pressable,Linking,ScrollView } from "react-native";
 
 const ArticleDetailsScreen = (props) => {
   const [articleDetails, setArticleDetails] = useState(null);
   const [ifloading, setIfLoading]=useState(true);
   const [fadeAnim] = useState(new Animated.Value(0));
-  console.log(props.route);
+
   useEffect(() => {
     fetch(`https://cs571.org/api/s24/hw8/article?id=${props.route.params.fullArticleId}`,{
         headers:{
@@ -23,17 +23,28 @@ const ArticleDetailsScreen = (props) => {
       })
       .catch((error) => console.error("Error fetching article details:", error));
 }, []);
-    console.log(articleDetails);
+
+const openArticleLink = () => {
+  Linking.openURL(articleDetails.url);
+};
+
     return (
     <View>
       {ifloading?(
         <Text>Loading...</Text>
       ):(
         <Animated.View style={{opacity: fadeAnim}}>
+          <ScrollView>
             <Text>test</Text>
             <Text>{articleDetails.author}</Text>
             <Text>{articleDetails.posted}</Text>
             <Text>{articleDetails.body}</Text>
+            {articleDetails.url && (
+            <Pressable onPress={openArticleLink}>
+              <Text style={{ color: 'blue'}}>Read full article here</Text>
+            </Pressable>
+            )}
+          </ScrollView>
         </Animated.View>
       )}
     </View>
